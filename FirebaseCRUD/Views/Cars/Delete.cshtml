@@ -1,5 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Car
+
+<h2>Are you sure you want to delete this car?</h2>
+<p>@Model.Make @Model.Model (@Model.Year)</p>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" name="CarId" value="@Model.CarId" />
+    <button type="submit">Yes, Delete</button>
+    <a href="/Cars/Index">No, Cancel</a>
+</form>

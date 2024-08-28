@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Car
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="CarId" value="@Model.CarId" />
+    <div>
+        <label for="Make">Make</label>
+        <input type="text" id="Make" name="Make" value="@Model.Make" required />
+    </div>
+    <div>
+        <label for="Model">Model</label>
+        <input type="text" id="Model" name="Model" value="@Model.Model" required />
+    </div>
+    <div>
+        <label for="Year">Year</label>
+        <input type="number" id="Year" name="Year" value="@Model.Year" required />
+    </div>
+    <button type="submit">Save</button>
+</form>
