@@ -1,4 +1,8 @@
-﻿@model Car
+﻿@{
+    Layout = "_Layout";
+}
+
+@model Car
 
 <form asp-action="Edit" method="post">
     <input type="hidden" name="CarId" value="@Model.CarId" />

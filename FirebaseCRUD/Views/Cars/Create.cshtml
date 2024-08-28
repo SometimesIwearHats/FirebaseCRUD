@@ -1,6 +1,10 @@
-﻿@model Car
+﻿@{
+    Layout = "_Layout";
+}
 
-<form asp-action="Create" method="post">
+<h2>Create New Car</h2>
+
+<form id="carForm">
     <div>
         <label for="Make">Make</label>
         <input type="text" id="Make" name="Make" required />
@@ -15,3 +19,19 @@
     </div>
     <button type="submit">Create</button>
 </form>
+
+<script>
+    document.getElementById("carForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const make = document.getElementById("Make").value;
+        const model = document.getElementById("Model").value;
+        const year = document.getElementById("Year").value;
+
+        addCar(make, model, year).then(() => {
+            alert("Car added successfully!");
+            window.location.href = "/Cars/Index";  // Redirect to the car list after successful submission
+        }).catch((error) => {
+            console.error("Error adding car:", error);
+        });
+    });
+</script>

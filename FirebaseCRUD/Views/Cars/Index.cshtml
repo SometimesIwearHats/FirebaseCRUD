@@ -1,26 +1,43 @@
-﻿@model IEnumerable<Car>
+﻿@{
+    Layout = "_Layout";
+}
 
-<table>
+<h2>Car List</h2>
+
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th>Make</th>
-            <th>Model</th>
-            <th>Year</th>
-            <th>Actions</th>
+            <th style="width: 25%;">Make</th>
+            <th style="width: 25%;">Model</th>
+            <th style="width: 20%;">Year</th>
+            <th style="width: 30%;">Actions</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var car in Model)
-        {
-            <tr>
-                <td>@car.Make</td>
-                <td>@car.Model</td>
-                <td>@car.Year</td>
-                <td>
-                    <a href="/Cars/Edit/@car.CarId">Edit</a>
-                    <a href="/Cars/Delete/@car.CarId">Delete</a>
-                </td>
-            </tr>
-        }
+
+    <tbody id="carTableBody">
+        <!-- Car rows will be dynamically added here -->
     </tbody>
 </table>
+
+<script>
+    // Fetch and display cars when the page loads
+    getCars().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            const car = doc.data();
+            const carRow = `
+                    <tr>
+                        <td>${car.make}</td>
+                        <td>${car.model}</td>
+                        <td>${car.year}</td>
+                        <td>
+                            <a href="/Cars/Edit/${doc.id}" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="/Cars/Delete/${doc.id}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                `;
+            document.getElementById("carTableBody").innerHTML += carRow;
+        });
+    }).catch((error) => {
+        console.error("Error fetching cars:", error);
+    });
+</script>
